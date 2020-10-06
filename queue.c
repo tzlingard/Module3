@@ -12,20 +12,20 @@
 #include <stdlib.h>
 typedef void queue_t;
 
-#create a queue function
+/*create a queue function*/
 struct queue_t* gopen(void){
-	#define a pointer for this queue
+	/*define a pointer for this queue*/
 	queue_t* head;
-	#if there is a problem with allocating memory
+	/*if there is a problem with allocating memory*/
 	if(!(head = (queue_t*)malloc(sizeof(queue_t)))){
-		#throw an error
+		/*throw an error*/
 		printf("[Error: malloc failed allocating person]\n");
 		return Null;
 	}
 	return head;
 }
 
-#apply a function to all the elements of the queue
+/*apply a function to all the elements of the queue*/
 void qapply(queue_t *qp, void (*fn)(void* elementp)){
 	for(qp=front; qp!=NULL;qp=qp->next){
 		(*fn)(qp);
