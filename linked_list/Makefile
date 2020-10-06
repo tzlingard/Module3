@@ -1,4 +1,4 @@
-CFLAGS=-Wall -pedantic -std=c11
+CFLAGS=-Wall -pedantic -std=c11 -I. -g
 all:		listtest
 
 list.o:		list.c list.h
