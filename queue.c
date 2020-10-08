@@ -14,7 +14,7 @@ typedef struct queue_t {
   node_t* back;
 } queueStruct_t;
 
-node_t *make_node(node_t *next, void *element) {
+static node_t *make_node(node_t *next, void *element) {
   node_t *new;
   if (!(new = (node_t*)malloc(sizeof(node_t)))) {
     printf("Malloc failure\n");
@@ -26,11 +26,11 @@ node_t *make_node(node_t *next, void *element) {
 }
 
 /*create a queue function*/
-struct queue_t* gopen(void){
+queue_t* qopen(void){
   /*define a pointer for this queue*/
   queueStruct_t* head;
   /*if there is a problem with allocating memory*/
-  if(!(head = (queue_t*)malloc(sizeof(queueStruct_t)))){
+  if(!(head = (queueStruct_t*)malloc(sizeof(queueStruct_t)))){
     /*throw an error*/
     printf("[Error: malloc failed allocating person]\n");
     return NULL;
@@ -95,12 +95,12 @@ void qconcat (queue_t *q1p, queue_t *q2p) {
   }
 }
 
-/*void* qremove(queue_t *qp, bool (*searchfn)(void* elementp, const void* keyp), const void* skeyp) {
+void* qremove(queue_t *qp, bool (*searchfn)(void* elementp, const void* keyp), const void* skeyp) {
   node_t* c;
-  for(c=qp->front; c != NULL; c=c->next) { //iterate through the queue //TODO: qp is a queue, not a queueStruct: no front?
-    if ((*searchfn)(c, skeyp) == TRUE) { //if the boolean is satisfied with the given key
+  for(c=((queueStruct_t*)qp)->front; c != NULL; c=c->next) { //iterate through the queue //TODO: qp is a queue, not a queueStruct: no front?
+    if ((*searchfn)(c, skeyp) == 1) { //if the boolean is satisfied with the given key
       return (void*)c;
     }
   }
   return NULL;
-  }*/
+}
