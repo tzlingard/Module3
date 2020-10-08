@@ -10,7 +10,17 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
-typedef void queue_t;
+#include "queue.h"
+
+typedef struct node {
+  struct node *next;
+  void*  element;
+} node_t;
+
+typedef struct {
+  node_t* front;
+  node_t* back;
+} queueStruct_t;
 
 /*create a queue function*/
 struct queue_t* gopen(void){
