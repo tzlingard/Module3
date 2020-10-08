@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdint.h>
@@ -17,6 +18,8 @@ typedef struct queue_t {
 
 static node_t *make_node(node_t *next, void *element) {
 =======
+=======
+>>>>>>> cfeafc1768a89d5eec42ea1bec4046ad18c1dda6
 /* queue.c --- 
  * 
  * 
@@ -48,6 +51,9 @@ typedef struct {
 
 
 node_t *make_node(node_t *next, void *element) {
+<<<<<<< HEAD
+>>>>>>> cfeafc1768a89d5eec42ea1bec4046ad18c1dda6
+=======
 >>>>>>> cfeafc1768a89d5eec42ea1bec4046ad18c1dda6
   node_t *new;
   if (!(new = (node_t*)malloc(sizeof(node_t)))) {
@@ -60,7 +66,10 @@ node_t *make_node(node_t *next, void *element) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> cfeafc1768a89d5eec42ea1bec4046ad18c1dda6
 /*create a queue function*/
 struct queue_t* gopen(void){
 	/*define a pointer for this queue*/
@@ -75,11 +84,15 @@ struct queue_t* gopen(void){
 }
 
 
+<<<<<<< HEAD
+>>>>>>> cfeafc1768a89d5eec42ea1bec4046ad18c1dda6
+=======
 >>>>>>> cfeafc1768a89d5eec42ea1bec4046ad18c1dda6
 /* put element at the end of the queue
  * returns 0 is successful; nonzero otherwise 
  */
 int32_t qput(queue_t *qp, void *elementp) {
+<<<<<<< HEAD
 <<<<<<< HEAD
   //make node type
   node_t *qn = make_node(NULL, elementp);
@@ -98,6 +111,8 @@ int32_t qput(queue_t *qp, void *elementp) {
 	  qp->back = qn;
 	  return 0;
 =======
+=======
+>>>>>>> cfeafc1768a89d5eec42ea1bec4046ad18c1dda6
 	//make node type
 	node_t *qn = make_node(NULL, elementp);
 	if (qn == NULL) {
@@ -114,6 +129,9 @@ int32_t qput(queue_t *qp, void *elementp) {
 		qp->back->next = qn;
 		qp->back = qn;
 		return 0;
+<<<<<<< HEAD
+>>>>>>> cfeafc1768a89d5eec42ea1bec4046ad18c1dda6
+=======
 >>>>>>> cfeafc1768a89d5eec42ea1bec4046ad18c1dda6
 	}
 	return 1;
@@ -121,6 +139,7 @@ int32_t qput(queue_t *qp, void *elementp) {
 
 /* get the first element from queue, removing it from the queue */
 void* qget(queue_t *qp) {
+<<<<<<< HEAD
 <<<<<<< HEAD
   //case 1: empty queue
   if (qp->front == NULL) {
@@ -155,6 +174,8 @@ void qconcat (queue_t *q1p, queue_t *q2p) {
   return NULL;
   }*/
 =======
+=======
+>>>>>>> cfeafc1768a89d5eec42ea1bec4046ad18c1dda6
 	//case 1: empty queue
 	if (qp->front == NULL) {
 		return NULL;
@@ -174,4 +195,7 @@ void qapply(queue_t *qp, void (*fn)(void* elementp)){
 		(*fn)(qp);
 	}
 }
+<<<<<<< HEAD
+>>>>>>> cfeafc1768a89d5eec42ea1bec4046ad18c1dda6
+=======
 >>>>>>> cfeafc1768a89d5eec42ea1bec4046ad18c1dda6
