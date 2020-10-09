@@ -2,6 +2,7 @@
 /* 
  * queue.h -- public interface to the queue module
  */
+
 #include <stdint.h>
 #include <stdbool.h>
 
@@ -50,4 +51,3 @@ void* qremove(queue_t *qp,
  * q2 is dealocated, closed, and unusable upon completion 
  */
 void qconcat(queue_t *q1p, queue_t *q2p);
-
