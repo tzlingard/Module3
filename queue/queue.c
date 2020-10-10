@@ -72,7 +72,9 @@ void* qget(queue_t *qp) {
   else {
     node_t* fp =((queueStruct_t*)qp)->front;
     ((queueStruct_t*)qp)->front = ((queueStruct_t*)qp)->front->next;
-    return (void*)(fp->element);
+		void* elementp = (void*)(fp->element);
+		free(fp);
+		return elementp;
   }
 }
 

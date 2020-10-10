@@ -74,6 +74,12 @@ int main(void) {
 	char* plate2 = "THIS_SHOULD_FAIL";
 	car_t *find_car2 = qsearch(q1, platecheck, plate2);
 	print_car(find_car2);
+
+
+	cc1 = (car_t*)qget(q1);
+	cc1 = (car_t*)qget(q1);
+	cc1 = (car_t*)qget(q1);
+	
 	
   printf("Test completed with %d errors.\n", fails);
   free(c1);
