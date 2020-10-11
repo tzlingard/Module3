@@ -7,8 +7,10 @@
 #include <stdlib.h>
 #include "hash.h"
 #include "../queue/queue.h"
-#include <stdint.h> /* do we need these last two?*/                                                            
+#include <stdint.h>                                                         
 #include <stdbool.h>
+#define get16bits(d) (*((const uint16_t *) (d)))
+
 /*typedef void hashtable_t;  representation of a hashtable hidden */ 
 typedef struct hashtable_t {
   int size;
@@ -23,12 +25,10 @@ typedef struct hashtable_t {
  * function used all over the place nowadays, including Google Sparse
  * Hash.
  */
-#define get16bits(d) (*((const uint16_t *) (d)))
 
 static uint32_t SuperFastHash (const char *data,int len,uint32_t tablesize) {
   uint32_t hash = len, tmp;
   int rem;
-  
   if (len <= 0 || data == NULL)
 		return 0;
   rem = len & 3;
@@ -76,30 +76,39 @@ hashtable_t *hopen(uint32_t size) {
 }
                                                                                                    
 /* hclose -- closes a hash table */                                               
-void hclose(hashtable_t *htp);                                                    
+void hclose(hashtable_t *htp) {
+  int i;
+  for(i=0;i<(*(hashStruct_t*)htp).size;i++) {
+    free(((hashStruct_t*)htp)->table[i]);
+  }
+  free(htp);
+}                                                  
                                                                                   
 /* hput -- puts an entry into a hash table under designated key                   
  * returns 0 for success; non-zero otherwise                                      
  */                                                                               
-int32_t hput(hashtable_t *htp, void *ep, const char *key, int keylen);            
+int32_t hput(hashtable_t *htp, void *ep, const char *key, int keylen) {
+  return 0;
+}       
                                                                                   
 /* happly -- applies a function to every entry in hash table */                   
-void happly(hashtable_t *htp, void (*fn)(void* ep));                              
+void happly(hashtable_t *htp, void (*fn)(void* ep)) {
+
+}                             
                                                                                   
 /* hsearch -- searchs for an entry under a designated key using a                 
  * designated search fn -- returns a pointer to the entry or NULL if              
  * not found                                                                      
  */                                                                               
-void *hsearch(hashtable_t *htp,                                                   
-        bool (*searchfn)(void* elementp, const void* searchkeyp),                 
-        const char *key,                                                          
-        int32_t keylen);                                                          
+void *hsearch(hashtable_t *htp, bool (*searchfn)(void* elementp, const void* searchkeyp), const char *key, int32_t keylen) {
+  
+  return qget(htp)
+}                                                         
                                                                                   
 /* hremove -- removes and returns an entry under a designated key                 
  * using a designated search fn -- returns a pointer to the entry or              
  * NULL if not found                                                              
  */
-void *hremove(hashtable_t *htp,
-		    bool (*searchfn)(void* elementp, const void* searchkeyp),                 
-        const char *key,                                                          
-        int32_t keylen);
+void *hremove(hashtable_t *htp, bool (*searchfn)(void* elementp, const void* searchkeyp), const char *key, int32_t keylen) {
+  
+}
