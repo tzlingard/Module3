@@ -112,7 +112,11 @@ int main(void) {
 	
 	
   printf("Test completed with %d errors.\n", fails);
-  qclose(q1);
+  free(c1);
+  free(c2);
+  free(c3);
+  free(c4);
+qclose(q1);
   exit(EXIT_SUCCESS);
 	
 }
