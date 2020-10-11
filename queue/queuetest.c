@@ -47,7 +47,7 @@ void print_car(void *c) {
 bool platecheck(void* c, const void* p){
 	car_t *car = (car_t*)c;
 	char *plate = (char*)p;
-	return (strcmp(car->plate, plate) == 0);
+	return (!strcmp(car->plate, plate));
 }
 
 car_t *front = NULL;
@@ -98,25 +98,25 @@ int main(void) {
 	car_t *find_car2 = qsearch(q1, platecheck, (void*)plate2);
 	print_car(find_car2);
 	printf("\n\n");
-
-
 	///need tests for
-	//qclose
 	//qremove
 	//qconcat
-	
-	
+	if(qremove(q1, platecheck, "Darty1") == NULL) {
+		printf("Error: should have removed, but returned NULL\n");
+		fails++;
+	}
+	if(qremove(q1, platecheck, "NOPE") != NULL) {
+		printf("Error: remove should have returned NULL)\n");
+		fails++;
+	}
 	cc1 = (car_t*)qget(q1);
 	cc1 = (car_t*)qget(q1);
-	cc1 = (car_t*)qget(q1);
-	
-	
-  printf("Test completed with %d errors.\n", fails);
-  free(c1);
-  free(c2);
-  free(c3);
-  free(c4);
-qclose(q1);
-  exit(EXIT_SUCCESS);
+	printf("Test completed with %d errors.\n", fails);
+	free(c1);
+	free(c2);
+	free(c3);
+	free(c4);
+	qclose(q1);
+	exit(EXIT_SUCCESS);
 	
 }

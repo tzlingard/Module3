@@ -9,4 +9,4 @@ fi
 
 make clean
 make all
-valgrind --leak-check=full ./queuetest
+valgrind --leak-check=full --show-leak-kinds=all -v ./queuetest

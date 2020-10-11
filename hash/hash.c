@@ -72,7 +72,7 @@ hashtable_t *hopen(uint32_t size) {
   for (i=0;i<size;i++) {
     qput(hashTable->table[i], qopen());
   }
-  return hashTable;}
+  return (hashtable_t*)hashTable;
 }
                                                                                                    
 /* hclose -- closes a hash table */                                               
