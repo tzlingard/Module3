@@ -35,13 +35,25 @@ queue_t* qopen(void){
     printf("[Error: malloc failed allocating person]\n");
     return NULL;
   }
-  head->front = NULL;
-  head->back = NULL;
   return (queue_t*)head;
 }
 
+
+/* deallocate a queue, frees everything in it */
+void qclose(queue_t *qp){
+	node_t* f = ((queueStruct_t*)qp)->front;
+	node_t* n = NULL;
+	while(f!=NULL){
+		n = f->next;
+		free(f);
+		f=n;
+	}
+	free(qp);
+}
+
+
 /* put element at the end of the queue
- * returns 0 if successful; nonzero otherwise 
+ * returns 0 is successful; nonzero otherwise 
  */
 int32_t qput(queue_t *qp, void *elementp) {
   //make node type
@@ -114,11 +126,29 @@ void* qsearch(queue_t *qp, bool (*searchfn)(void* elementp,const void* keyp), co
  * NULL if not found
  */
 void* qremove(queue_t *qp, bool (*searchfn)(void* elementp, const void* keyp), const void* skeyp) {
-  node_t* c;
-  for(c=((queueStruct_t*)qp)->front; c != NULL; c=c->next) { //iterate through the queue //TODO: qp is a queue, not a queueStruct: no front?
-    if ((*searchfn)(c, skeyp) == 1) { //if the boolean is satisfied with the given key
-      return (void*)c;
-    }
+  node_t* c =  ((queueStruct_t*)qp)->front;
+	//case 1: element found at start of queue
+	if ((*searchfn)(c->element, skeyp)) { //if the boolean is satisfied with the given key
+
+		void* elementp = c->element;
+		((queueStruct_t*)qp)->front = ((queueStruct_t*)qp)->front->next;
+		free(c);
+		return elementp;
+	}
+	//case 2: element found in middle/end of queue
+	node_t *f = c; //following pointer 
+  for(c=((queueStruct_t*)qp)->front->next; c != NULL; c=c->next) { //iterate through the queue //TODO: qp is a queue, not a queueStruct: no front?
+    if ((*searchfn)(c->element, skeyp)) { //if the boolean is satisfied with the given key
+
+			void* elementp = c->element;
+			f->next = c->next;
+			if(((queueStruct_t*)qp)->back == c) {
+				((queueStruct_t*)qp)->back = f;
+			}
+			free(c);
+			return elementp;
+		}
+		f=c;
   }
   return NULL;
 }
@@ -127,22 +157,25 @@ void* qremove(queue_t *qp, bool (*searchfn)(void* elementp, const void* keyp), c
 /* concatenatenates elements of q2 into q1
  * q2 is dealocated, closed, and unusable upon completion 
  */
+
 void qconcat (queue_t *q1p, queue_t *q2p) {
   if ((queueStruct_t*)q1p != NULL && (queueStruct_t*)q2p != NULL) {
-    while ((queueStruct_t*)q2p != NULL) {
-      if(qput((queueStruct_t*)q1p, (node_t*)qget((queueStruct_t*)q2p)) != 0) {//removes first element from q2p and puts it at the end of q1p, fails if put is non-zero
-	printf("Concatenation failed.\n");
-	return;
-       }
-    }
+    while (((queueStruct_t*)q2p)->front != NULL) {
+      qput((queueStruct_t*)q1p, (node_t*)qget((queueStruct_t*)q2p)); //removes first element from q2p and puts it at the end of q1p, fails if put is non-zero
+		}
+		qclose(q2p);
   }
 }
 
-/* deallocate a queue, frees everything in it */
-void qclose(queue_t *qp) {
-  node_t* c;
-  for(c=((queueStruct_t*)qp)->front; c != NULL; c=c->next) { //iterate through the queue //TODO: qp is a queue, not a queueStruct: no front?
-    free(c);
-  }
-  free(qp);
-}
+/*
+ *void qconcat (queue_t *q1p, queue_t *q2p) {
+ * if ((queueStruct_t*)q1p != NULL && (queueStruct_t*)q2p != NULL) {
+ *   while ((queueStruct_t*)q2p != NULL) {
+ *     if(qput((queueStruct_t*)q1p, (node_t*)qget((queueStruct_t*)q2p)) != 0) {//removes first element from q2p and puts it at the end of q1p, fails if put *is non-zero
+ *	printf("Concatenation failed.\n");
+ *	return;
+ *      }
+ *   }
+ * }
+ *}
+ */
