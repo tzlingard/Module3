@@ -7,7 +7,9 @@
 #include <stdlib.h>
 #include "hash.h"
 #include "../queue/queue.h"
-
+#include <stdint.h> /* do we need these last two?*/                                                            
+#include <stdbool.h>
+/*typedef void hashtable_t;  representation of a hashtable hidden */ 
 typedef struct hashtable_t {
   int size;
   queue_t** table;
@@ -72,15 +74,7 @@ hashtable_t *hopen(uint32_t size) {
   }
   return hashTable;}
 }
-
-#include <stdint.h>                                                               
-#include <stdbool.h>                                                              
-                                                                                  
-typedef void hashtable_t; /* representation of a hashtable hidden */              
-                                                                                  
-/* hopen -- opens a hash table with initial size hsize */                         
-hashtable_t *hopen(uint32_t hsize);                                               
-                                                                                  
+                                                                                                   
 /* hclose -- closes a hash table */                                               
 void hclose(hashtable_t *htp);                                                    
                                                                                   
