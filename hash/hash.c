@@ -93,7 +93,10 @@ int32_t hput(hashtable_t *htp, void *ep, const char *key, int keylen) {
                                                                                   
 /* happly -- applies a function to every entry in hash table */                   
 void happly(hashtable_t *htp, void (*fn)(void* ep)) {
-
+  int i;
+  for(i=0;i<(*(hashStruct_t*)htp).size;i++) {
+    qapply((((hashStruct_t*)htp)->table[i]), fn);
+  }
 }                             
                                                                                   
 /* hsearch -- searchs for an entry under a designated key using a                 
