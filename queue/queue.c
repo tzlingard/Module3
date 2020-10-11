@@ -82,7 +82,7 @@ void* qget(queue_t *qp) {
 void qapply(queue_t *qp, void (*fn)(void* elementp)){
   node_t* c;
   for(c=((queueStruct_t*)qp)->front; c!=NULL; c=c->next){
-    (*fn)((queueStruct_t*)qp);
+    (*fn)((queueStruct_t*)(c->element));
   }
 }
 

@@ -31,7 +31,8 @@ car_t *make_car(char plate[], double price, int year) {
   return new;
 }
 
-void print_car(car_t *car) {
+void print_car(void *c) {
+	car_t* car = (car_t*)c;
   if (car != NULL) {
     printf("Plate: %s\n",car->plate);
     printf("Price: %lf\n", car->price);
@@ -70,25 +71,29 @@ int main(void) {
 	print_car(cc1);
 	printf("\n\n");
 
-	printf("Test 3 : Put to queue\n");
+	printf("Test 3 : Put to queue (Adds 4 cars)\n");
 	qput(q1,(void*)c1);
 	qput(q1,(void*)c2);
 	qput(q1,(void*)c3);
 	qput(q1,(void*)c4);
 	printf("\n\n");
 
-	printf("Test 4: Get and print from nonempty queue\n");
+	printf("Test 4 : Apply print to nonempty queue\n");
+	qapply(q1, print_car);
+	printf("\n\n");
+		
+	printf("Test 5: Get and print from nonempty queue\n");
 	cc1 = (car_t*)qget(q1);
 	print_car(cc1);
 	printf("\n\n");
 
-	printf("Test 5: Search for plate 'SUNGOD' from nonempty queue\n");
+	printf("Test 6: Search for plate 'SUNGOD' from nonempty queue\n");
 	char* plate1 = "SUNGOD";
 	car_t *find_car1 = qsearch(q1, platecheck, (void*)plate1);
  	print_car(find_car1);
 	printf("\n\n");
 
-	printf("Test 6: Search for plate 'THIS_SHOULD_FAIL' from nonempty queue\n");
+	printf("Test 7: Search for plate 'THIS_SHOULD_FAIL' from nonempty queue\n");
 	char* plate2 = "THIS_SHOULD_FAIL";
 	car_t *find_car2 = qsearch(q1, platecheck, (void*)plate2);
 	print_car(find_car2);
@@ -97,7 +102,6 @@ int main(void) {
 
 	///need tests for
 	//qclose
-	//qapply
 	//qremove
 	//qconcat
 	
