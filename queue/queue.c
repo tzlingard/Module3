@@ -107,7 +107,24 @@ void* qsearch(queue_t *qp, bool (*searchfn)(void* elementp,const void* keyp), co
 }
 
 
+/* search a queue using a supplied boolean function (as in qsearch),
+ * removes the element from the queue and returns a pointer to it or
+ * NULL if not found
+ */
+void* qremove(queue_t *qp, bool (*searchfn)(void* elementp, const void* keyp), const void* skeyp) {
+  node_t* c;
+  for(c=((queueStruct_t*)qp)->front; c != NULL; c=c->next) { //iterate through the queue //TODO: qp is a queue, not a queueStruct: no front?
+    if ((*searchfn)(c, skeyp) == 1) { //if the boolean is satisfied with the given key
+      return (void*)c;
+    }
+  }
+  return NULL;
+}
 
+
+/* concatenatenates elements of q2 into q1
+ * q2 is dealocated, closed, and unusable upon completion 
+ */
 void qconcat (queue_t *q1p, queue_t *q2p) {
   if ((queueStruct_t*)q1p != NULL && (queueStruct_t*)q2p != NULL) {
     while ((queueStruct_t*)q2p != NULL) {
@@ -117,14 +134,4 @@ void qconcat (queue_t *q1p, queue_t *q2p) {
        }
     }
   }
-}
-
-void* qremove(queue_t *qp, bool (*searchfn)(void* elementp, const void* keyp), const void* skeyp) {
-  node_t* c;
-  for(c=((queueStruct_t*)qp)->front; c != NULL; c=c->next) { //iterate through the queue //TODO: qp is a queue, not a queueStruct: no front?
-    if ((*searchfn)(c, skeyp) == 1) { //if the boolean is satisfied with the given key
-      return (void*)c;
-    }
-  }
-  return NULL;
 }
