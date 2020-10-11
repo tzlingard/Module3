@@ -94,6 +94,14 @@ int main(void) {
 	print_car(find_car2);
 	printf("\n\n");
 
+
+	///need tests for
+	//qclose
+	//qapply
+	//qremove
+	//qconcat
+	
+	
 	cc1 = (car_t*)qget(q1);
 	cc1 = (car_t*)qget(q1);
 	cc1 = (car_t*)qget(q1);
