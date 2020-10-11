@@ -39,7 +39,7 @@ queue_t* qopen(void){
 }
 
 /* put element at the end of the queue
- * returns 0 is successful; nonzero otherwise 
+ * returns 0 if successful; nonzero otherwise 
  */
 int32_t qput(queue_t *qp, void *elementp) {
   //make node type
@@ -104,8 +104,6 @@ void* qsearch(queue_t *qp, bool (*searchfn)(void* elementp,const void* keyp), co
 	return NULL;
 }
 
-
-
 void qconcat (queue_t *q1p, queue_t *q2p) {
   if ((queueStruct_t*)q1p != NULL && (queueStruct_t*)q2p != NULL) {
     while ((queueStruct_t*)q2p != NULL) {
@@ -125,4 +123,12 @@ void* qremove(queue_t *qp, bool (*searchfn)(void* elementp, const void* keyp), c
     }
   }
   return NULL;
+}
+
+/* deallocate a queue, frees everything in it */
+void qclose(queue_t *qp) {
+  node_t* c;
+  for(c=((queueStruct_t*)qp)->front; c != NULL; c=c->next) { //iterate through the queue //TODO: qp is a queue, not a queueStruct: no front?
+    free(c);
+  }
 }

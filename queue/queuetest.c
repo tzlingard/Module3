@@ -65,7 +65,6 @@ int main(void) {
 	
 	car_t *cc1 = (car_t*)qget(q1);
 	print_car(cc1);
-
 	//qsearch test
 	char* plate1 = "SUNGOD";
 	car_t *find_car1 = qsearch(q1, platecheck, plate1);
@@ -76,11 +75,7 @@ int main(void) {
 	print_car(find_car2);
 	
   printf("Test completed with %d errors.\n", fails);
-  free(c1);
-  free(c2);
-  free(c3);
-  free(c4);
-	free(q1);
+  qclose(q1);
   exit(EXIT_SUCCESS);
 	
 }
