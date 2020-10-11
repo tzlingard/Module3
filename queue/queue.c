@@ -41,6 +41,9 @@ queue_t* qopen(void){
 
 /* deallocate a queue, frees everything in it */
 void qclose(queue_t *qp){
+	if (qp == NULL){
+		return;
+	}
 	node_t* f = ((queueStruct_t*)qp)->front;
 	node_t* n = NULL;
 	while(f!=NULL){
@@ -56,6 +59,9 @@ void qclose(queue_t *qp){
  * returns 0 is successful; nonzero otherwise 
  */
 int32_t qput(queue_t *qp, void *elementp) {
+	if (qp == NULL || elementp == NULL){
+		return 1;
+	}
   //make node type
   node_t *qn = make_node(NULL, elementp);
   if (qn == NULL) {
@@ -78,6 +84,9 @@ int32_t qput(queue_t *qp, void *elementp) {
 
 /* get the first element from queue, removing it from the queue */
 void* qget(queue_t *qp) {
+	if (qp == NULL){
+		return NULL;
+	}
   //case 1: empty queue
   if (((queueStruct_t*)qp)->front == NULL) {
     return NULL;
@@ -94,7 +103,10 @@ void* qget(queue_t *qp) {
 
 /*apply a function to all the elements of the queue*/
 void qapply(queue_t *qp, void (*fn)(void* elementp)){
-  node_t* c;
+	if (qp == NULL || fn == NULL){
+		return;
+	}
+	node_t* c;
   for(c=((queueStruct_t*)qp)->front; c!=NULL; c=c->next){
     (*fn)((queueStruct_t*)(c->element));
   }
@@ -111,6 +123,9 @@ void qapply(queue_t *qp, void (*fn)(void* elementp)){
  * returns a pointer to an element, or NULL if not found
  */
 void* qsearch(queue_t *qp, bool (*searchfn)(void* elementp,const void* keyp), const void* skeyp){
+ 	if ((qp == NULL || searchfn == NULL) || skeyp == NULL) {
+		return NULL;
+	}
 	node_t* n;
 	for (n=((queueStruct_t*)qp)->front; n!=NULL; n=n->next) {
 		if (searchfn(n->element, skeyp)) {
@@ -126,7 +141,13 @@ void* qsearch(queue_t *qp, bool (*searchfn)(void* elementp,const void* keyp), co
  * NULL if not found
  */
 void* qremove(queue_t *qp, bool (*searchfn)(void* elementp, const void* keyp), const void* skeyp) {
-  node_t* c =  ((queueStruct_t*)qp)->front;
+	if ((qp == NULL || searchfn == NULL) || skeyp == NULL) {
+		return NULL;
+	}
+	node_t* c =  ((queueStruct_t*)qp)->front;
+	if (c==NULL){
+		return NULL;
+	}
 	//case 1: element found at start of queue
 	if ((*searchfn)(c->element, skeyp)) { //if the boolean is satisfied with the given key
 
