@@ -26,7 +26,7 @@ typedef struct hashtable_t {
  * Hash.
  */
 
-static uint32_t SuperFastHash (const char *data,int len,uint32_t tablesize) {
+static uint32_t SuperFastHash (const char *data, int len,uint32_t tablesize) {
   uint32_t hash = len, tmp;
   int rem;
   if (len <= 0 || data == NULL)
