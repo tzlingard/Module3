@@ -35,6 +35,8 @@ queue_t* qopen(void){
     printf("[Error: malloc failed allocating person]\n");
     return NULL;
   }
+  head->front = NULL;
+  head->back = NULL;
   return (queue_t*)head;
 }
 
@@ -142,4 +144,5 @@ void qclose(queue_t *qp) {
   for(c=((queueStruct_t*)qp)->front; c != NULL; c=c->next) { //iterate through the queue //TODO: qp is a queue, not a queueStruct: no front?
     free(c);
   }
+  free(qp);
 }
