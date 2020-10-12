@@ -60,16 +60,33 @@ int main(void) {
   car_t *c3 = make_car("SUNGOD", 80080.42, 2020);
   car_t *c4 = make_car("DARTXC", 1769.99, 1769);
 	car_t *c5 = make_car("CS5050", 5050.50, 1950);
-	car_t *c6 = make_car("ENGS50", 5050.50, 1950);
+	car_t *c6 = make_car("DARTXC", 5050.50, 1950);
 
 
 
+
+	
+	
 	
 	printf("Test 1: Open a new hashtable\n");
 	hashtable_t *h1 = hopen(10);
 	printf("\n\n");
+
+	printf("Test 2: Apply to empty table\n");
+	happly(h1, print_car);
+	printf("\n\n");
+
+
+	/*printf("Test 3 : Search from empty table\n");
+	print_car(hsearch(h1, platecheck, "SUNGOD", sizeof("SUNGOD")));
+	printf("\n\n");*/
+
+	/*printf("Test 4 : Remove from empty table\n");
+	hremove(h1, platecheck, "CS5050", sizeof("CS5O5O"));
+	printf("\n\n");*/
 	
-	printf("Test 2 : Put to hash table (Adds 6 cars)\n");
+	
+	printf("Test 4 : Put to hash table (Adds 6 cars)\n");
 	hput(h1,(void*)c1, (char*)(c1->plate), sizeof((char*)(c1->plate)));
 	hput(h1,(void*)c2, (char*)(c2->plate), sizeof((char*)(c2->plate)));
 	hput(h1,(void*)c3, (char*)(c3->plate), sizeof((char*)(c3->plate)));
@@ -78,21 +95,21 @@ int main(void) {
 	hput(h1,(void*)c6, (char*)(c6->plate), sizeof((char*)(c6->plate)));
 	printf("\n\n");
 
-	printf("Test 3 : Apply to hashtable (should print all cars in table) \n");
+	printf("Test 5 : Apply to hashtable (should print all cars in table) \n");
 	happly(h1,print_car);
 	printf("\n\n");
 
-	/*printf("Test 4 : Search from table (should print car with 'SUNGOD' plate) \n");
+	/*printf("Test 6 : Search from table (should print car with 'SUNGOD' plate) \n");
 	print_car(hsearch(h1, platecheck, "SUNGOD", sizeof("SUNGOD")));
 	printf("\n\n");*/
 
-	/*printf("Test 5 : Remove from hash (should remove car with 'CS5050' plate) \n");
+	/*printf("Test 7 : Remove from hash (should remove car with 'CS5050' plate) \n");
 	hremove(h1, platecheck, "CS5050", sizeof("CS5O5O"));
 	printf("Table after removal:\n");
 	happly(h1,print_car);
 	printf("\n\n");*/
 
-	printf("Test 6 : close hash \n");
+	printf("Test 8 : close hash \n");
 	hclose(h1);
 	printf("\n\n");
 	printf("Tests complete\n");
