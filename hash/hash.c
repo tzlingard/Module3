@@ -87,8 +87,10 @@ hashtable_t *hopen(uint32_t size) {
 void hclose(hashtable_t *htp) {
   int i;
   for(i=0;i<(*(hashStruct_t*)htp).size;i++) {
-    free(((hashStruct_t*)htp)->table[i]);
+		qclose(((hashStruct_t*)htp)->table[i]);
+		//		free(((hashStruct_t*)htp)->table[i]);
   }
+	free(((hashStruct_t*)htp)->table);
   free(htp);
 }                                                  
                                                                                   
