@@ -85,6 +85,9 @@ hashtable_t *hopen(uint32_t size) {
                                                                                                    
 /* hclose -- closes a hash table */                                               
 void hclose(hashtable_t *htp) {
+	if(htp==NULL){
+		return;
+	}
   int i;
   for(i=0;i<(*(hashStruct_t*)htp).size;i++) {
 		qclose(((hashStruct_t*)htp)->table[i]);
@@ -114,7 +117,10 @@ int32_t hput(hashtable_t *htp, void *ep, const char *key, int keylen) {
                                                                                   
 /* happly -- applies a function to every entry in hash table */                   
 void happly(hashtable_t *htp, void (*fn)(void* ep)) {
-  int i;
+	if(htp==NULL || fn==NULL){
+		return;
+	}
+	int i;
   for(i=0;i<(*(hashStruct_t*)htp).size;i++) {
     qapply((((hashStruct_t*)htp)->table[i]), fn);
   }
@@ -125,7 +131,10 @@ void happly(hashtable_t *htp, void (*fn)(void* ep)) {
  * not found                                                                      
  */                                                                               
 void *hsearch(hashtable_t *htp, bool (*searchfn)(void* elementp, const void* searchkeyp), const char *key, int32_t keylen) {
-  int i;
+ 	if( (htp==NULL || searchfn==NULL)||key==NULL) {
+		return NULL;
+	}
+	int i;
   void *e;
   for(i=0;i<keylen;i++) {
     e = qsearch((((hashStruct_t*)htp)->table[i]), searchfn, key);
@@ -139,7 +148,9 @@ void *hsearch(hashtable_t *htp, bool (*searchfn)(void* elementp, const void* sea
  * NULL if not found                                                              
  */
 void *hremove(hashtable_t *htp, bool (*searchfn)(void* elementp, const void* searchkeyp), const char *key, int32_t keylen) {
-	//add null aragument checks
+	if( (htp==NULL || searchfn==NULL)||key==NULL) {
+		return NULL;
+	}
 	for(int i=0;i<(*(hashStruct_t*)htp).size;i++) {
 		if(qsearch((((hashStruct_t*)htp)->table[i]), searchfn, key) != NULL){
 			return qremove((((hashStruct_t*)htp)->table[i]), searchfn, key);
