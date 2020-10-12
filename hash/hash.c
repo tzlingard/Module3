@@ -9,6 +9,7 @@
 #include "queue.h"
 #include <stdint.h>                                                         
 #include <stdbool.h>
+
 #define get16bits(d) (*((const uint16_t *) (d)))
 
 /*typedef void hashtable_t;  representation of a hashtable hidden */ 
@@ -67,12 +68,18 @@ static uint32_t SuperFastHash (const char *data, int len,uint32_t tablesize) {
 }
 
 hashtable_t *hopen(uint32_t size) {
-  hashStruct_t* hashTable = (hashStruct_t*)malloc(size*sizeof(hashStruct_t));
-  int i;
-  for (i=0;i<size;i++) {
-    qput(hashTable->table[i], qopen());
+  hashStruct_t* ht;
+  if(!(ht = (hashStruct_t*)malloc(sizeof(hashStruct_t)))){
+    /*throw an error*/
+    printf("[Error: malloc failed allocating hash table]\n");
+    return NULL;
   }
-  return (hashtable_t*)hashTable;
+  uint32_t i;
+  for (i=0;i<size;i++) {
+    ht->table[i] = qopen();
+  }
+  ht->size = size;
+  return (hashtable_t*)ht;
 }
                                                                                                    
 /* hclose -- closes a hash table */                                               

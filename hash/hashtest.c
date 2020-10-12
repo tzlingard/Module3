@@ -70,9 +70,14 @@ int main(void) {
 	printf("\n\n");
 	
 	printf("Test 2 : Put to queue (Adds 6 cars)\n");
-	//hput(h1,(void*)c1, (char*)(c1->plate), sizeof((char*)(c1->plate)));
+	hput(h1,(void*)c1, (char*)(c1->plate), sizeof((char*)(c1->plate)));
 	printf("\n\n");
-	
+  printf("Test 3: Applying to non-empty table\n");
+  happly(h1, print_car);
+  printf("\n\n");
+	printf("Test 4: Closing table\n");
+  hclose(h1);
+  printf("\n\n");
 	printf("Tests complete\n");
   free(c1);
   free(c2);
