@@ -123,7 +123,10 @@ void happly(hashtable_t *htp, void (*fn)(void* ep)) {
  * not found                                                                      
  */                                                                               
 void *hsearch(hashtable_t *htp, bool (*searchfn)(void* elementp, const void* searchkeyp), const char *key, int32_t keylen) {
-  
+  int i;
+  for(i=0;i<keylen;i++) {
+    qsearch((((hashStruct_t*)htp)->table[i]), searchfn, key);
+  }
   return qget(htp);
 }                                                         
                                                                                   
