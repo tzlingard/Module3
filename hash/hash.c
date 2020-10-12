@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "hash.h"
-#include "../queue/queue.h"
+#include "queue.h"
 #include <stdint.h>                                                         
 #include <stdbool.h>
 #define get16bits(d) (*((const uint16_t *) (d)))
@@ -88,17 +88,18 @@ void hclose(hashtable_t *htp) {
  * returns 0 for success; non-zero otherwise                                      
  */                                                                               
 int32_t hput(hashtable_t *htp, void *ep, const char *key, int keylen) {
-	if(htp == NULL || ep == NULL){
+	if((hashStruct_t*)htp == NULL || ep == NULL){
 		return 1;
 	}
-	if(key == NULL || keylen == NULL){
+	if(key == NULL){
 		return 1;
 	}
-	if(htp->size==NULL || htp -> table == NULL){
+	if(((hashStruct_t*)htp)->table == NULL){
 		return 1;
 	}
-  uint32_t loc = SuperFastHash(key, keylen, htp->size);
-	return (qput(htp->table[loc], ep)); 
+  uint32_t loc = SuperFastHash(key, keylen, ((hashStruct_t*)htp)->size);
+	queue_t* q = (queue_t*)(((hashStruct_t*)htp)->table[loc]); 
+	return qput(q, ep);
 }       
                                                                                   
 /* happly -- applies a function to every entry in hash table */                   
@@ -115,7 +116,7 @@ void happly(hashtable_t *htp, void (*fn)(void* ep)) {
  */                                                                               
 void *hsearch(hashtable_t *htp, bool (*searchfn)(void* elementp, const void* searchkeyp), const char *key, int32_t keylen) {
   
-  return qget(htp)
+  return qget(htp);
 }                                                         
                                                                                   
 /* hremove -- removes and returns an entry under a designated key                 
@@ -123,5 +124,5 @@ void *hsearch(hashtable_t *htp, bool (*searchfn)(void* elementp, const void* sea
  * NULL if not found                                                              
  */
 void *hremove(hashtable_t *htp, bool (*searchfn)(void* elementp, const void* searchkeyp), const char *key, int32_t keylen) {
-  
+ 
 }
