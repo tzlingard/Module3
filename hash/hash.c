@@ -137,5 +137,11 @@ void *hsearch(hashtable_t *htp, bool (*searchfn)(void* elementp, const void* sea
  * NULL if not found                                                              
  */
 void *hremove(hashtable_t *htp, bool (*searchfn)(void* elementp, const void* searchkeyp), const char *key, int32_t keylen) {
- 
+	//add null aragument checks
+	for(int i=0;i<(*(hashStruct_t*)htp).size;i++) {
+		if(qsearch((((hashStruct_t*)htp)->table[i]), searchfn, key) != NULL){
+			return qremove((((hashStruct_t*)htp)->table[i]), searchfn, key);
+		}
+	}
+	return NULL;
 }

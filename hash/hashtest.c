@@ -77,16 +77,16 @@ int main(void) {
 	printf("\n\n");
 
 
-	/*printf("Test 3 : Search from empty table\n");
+	printf("Test 3 : Search from empty table\n");
 	print_car(hsearch(h1, platecheck, "SUNGOD", sizeof("SUNGOD")));
-	printf("\n\n");*/
+	printf("\n\n");
 
-	/*printf("Test 4 : Remove from empty table\n");
+	printf("Test 4 : Remove from empty table\n");
 	hremove(h1, platecheck, "CS5050", sizeof("CS5O5O"));
-	printf("\n\n");*/
+	printf("\n\n");
 	
 	
-	printf("Test 4 : Put to hash table (Adds 6 cars)\n");
+	printf("Test 5 : Put to hash table (Adds 6 cars)\n");
 	hput(h1,(void*)c1, (char*)(c1->plate), sizeof((char*)(c1->plate)));
 	hput(h1,(void*)c2, (char*)(c2->plate), sizeof((char*)(c2->plate)));
 	hput(h1,(void*)c3, (char*)(c3->plate), sizeof((char*)(c3->plate)));
@@ -95,21 +95,21 @@ int main(void) {
 	hput(h1,(void*)c6, (char*)(c6->plate), sizeof((char*)(c6->plate)));
 	printf("\n\n");
 
-	printf("Test 5 : Apply to hashtable (should print all cars in table) \n");
+	printf("Test 6 : Apply to hashtable (should print all cars in table) \n");
 	happly(h1,print_car);
 	printf("\n\n");
 
-	printf("Test 6 : Search from table (should print car with 'SUNGOD' plate) \n");
+	printf("Test 7 : Search from table (should print car with 'SUNGOD' plate) \n");
 	print_car(hsearch(h1, platecheck, "SUNGOD", sizeof("SUNGOD")));
 	printf("\n\n");
 
-	/*printf("Test 7 : Remove from hash (should remove car with 'CS5050' plate) \n");
+	printf("Test 8 : Remove from hash (should remove car with 'CS5050' plate) \n");
 	hremove(h1, platecheck, "CS5050", sizeof("CS5O5O"));
 	printf("Table after removal:\n");
 	happly(h1,print_car);
-	printf("\n\n");*/
+	printf("\n\n");
 
-	printf("Test 8 : close hash \n");
+	printf("Test 9 : close hash \n");
 	hclose(h1);
 	printf("\n\n");
 	printf("Tests complete\n");
