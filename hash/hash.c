@@ -74,6 +74,7 @@ hashtable_t *hopen(uint32_t size) {
     printf("[Error: malloc failed allocating hash table]\n");
     return NULL;
   }
+  ht->table = (queue_t**)malloc(size*sizeof(ht->table));
   uint32_t i;
   for (i=0;i<size;i++) {
     ht->table[i] = qopen();

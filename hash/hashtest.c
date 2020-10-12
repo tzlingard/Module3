@@ -69,10 +69,6 @@ int main(void) {
 	hashtable_t *h1 = hopen(10);
 	printf("\n\n");
 	
-<<<<<<< HEAD
-	printf("Test 2 : Put to queue (Adds 6 cars)\n");
-	hput(h1,(void*)c1, (char*)(c1->plate), sizeof((char*)(c1->plate)));
-=======
 	printf("Test 2 : Put to hash table (Adds 6 cars)\n");
 	hput(h1,(void*)c1, (char*)(c1->plate), sizeof((char*)(c1->plate)));
 	hput(h1,(void*)c2, (char*)(c2->plate), sizeof((char*)(c2->plate)));
@@ -86,26 +82,19 @@ int main(void) {
 	happly(h1,print_car);
 	printf("\n\n");
 
-	printf("Test 4 : Search from table (should print car with 'SUNGOD' plate) \n");
+	/*printf("Test 4 : Search from table (should print car with 'SUNGOD' plate) \n");
 	print_car(hsearch(h1, platecheck, "SUNGOD", sizeof("SUNGOD")));
-	printf("\n\n");
+	printf("\n\n");*/
 
-	printf("Test 5 : Remove from hash (should remove car with 'CS5050' plate) \n");
+	/*printf("Test 5 : Remove from hash (should remove car with 'CS5050' plate) \n");
 	hremove(h1, platecheck, "CS5050", sizeof("CS5O5O"));
 	printf("Table after removal:\n");
 	happly(h1,print_car);
-	printf("\n\n");
+	printf("\n\n");*/
 
-	printf("Test 5 : close hash \n");
+	printf("Test 6 : close hash \n");
 	hclose(h1);
->>>>>>> 71c1dc0bebafe44b474effb0d16bd3c118744f80
 	printf("\n\n");
-  printf("Test 3: Applying to non-empty table\n");
-  happly(h1, print_car);
-  printf("\n\n");
-	printf("Test 4: Closing table\n");
-  hclose(h1);
-  printf("\n\n");
 	printf("Tests complete\n");
   free(c1);
   free(c2);
