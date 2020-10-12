@@ -88,7 +88,17 @@ void hclose(hashtable_t *htp) {
  * returns 0 for success; non-zero otherwise                                      
  */                                                                               
 int32_t hput(hashtable_t *htp, void *ep, const char *key, int keylen) {
-  return 0;
+	if(htp == NULL || ep == NULL){
+		return 1;
+	}
+	if(key == NULL || keylen == NULL){
+		return 1;
+	}
+	if(htp->size==NULL || htp -> table == NULL){
+		return 1;
+	}
+  uint32_t loc = SuperFastHash(key, keylen, htp->size);
+	return (qput(htp->table[loc], ep)); 
 }       
                                                                                   
 /* happly -- applies a function to every entry in hash table */                   
