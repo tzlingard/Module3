@@ -124,10 +124,12 @@ void happly(hashtable_t *htp, void (*fn)(void* ep)) {
  */                                                                               
 void *hsearch(hashtable_t *htp, bool (*searchfn)(void* elementp, const void* searchkeyp), const char *key, int32_t keylen) {
   int i;
+  void *e;
   for(i=0;i<keylen;i++) {
-    qsearch((((hashStruct_t*)htp)->table[i]), searchfn, key);
+    e = qsearch((((hashStruct_t*)htp)->table[i]), searchfn, key);
+    if (e != NULL) return e;
   }
-  return qget(htp);
+  return NULL;
 }                                                         
                                                                                   
 /* hremove -- removes and returns an entry under a designated key                 

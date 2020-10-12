@@ -99,9 +99,9 @@ int main(void) {
 	happly(h1,print_car);
 	printf("\n\n");
 
-	/*printf("Test 6 : Search from table (should print car with 'SUNGOD' plate) \n");
+	printf("Test 6 : Search from table (should print car with 'SUNGOD' plate) \n");
 	print_car(hsearch(h1, platecheck, "SUNGOD", sizeof("SUNGOD")));
-	printf("\n\n");*/
+	printf("\n\n");
 
 	/*printf("Test 7 : Remove from hash (should remove car with 'CS5050' plate) \n");
 	hremove(h1, platecheck, "CS5050", sizeof("CS5O5O"));
